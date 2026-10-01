@@ -2,7 +2,7 @@
 
 This is a miniature record player made using an Arduino ESP32 and various electronic components. The following is a dev log of my progress through this project, from the initial idea all the way to the final product (which has yet to be made).
 
-<img width="2048" height="1536" alt="IMG_0939" src="https://github.com/user-attachments/assets/7f1136ac-f2fc-46e5-81c3-a5859a36b5ea" /> <h6> The first prototype of the record player </h6>
+![First Prototype](https://github.com/user-attachments/assets/7f1136ac-f2fc-46e5-81c3-a5859a36b5ea) <h6> The first prototype of the record player </h6>
 
 # Ideation 
 The initial idea came from [this](https://www.youtube.com/watch?v=fBjv4E7mpA4) video, in which AKZ Dev created a mini record player that connected to Spotify. He used an existing record coaster set and designed a case in CAD software to hold the electronics below it. I saw this and thought it would be a fun project, but I wanted to make it entirely local. Instead of having it play through Spotify, I wanted it to be able to play songs off of a mini-SD card through a speaker mounted in the front. This is where the project began.
