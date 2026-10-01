@@ -55,9 +55,8 @@ Finally, after almost 3 weeks of work, I had my first prototype made.
 
 As you may imagine, it was messy, cumbersome, and only worked when I looked at it a certain way. Here are some initial pictures:
 
-<img width="2048" height="1536" alt="IMG_0940" src="https://github.com/user-attachments/assets/58fc0fb1-1f9e-4a69-8076-6ace780e09e0" />
-
-<img width="2048" height="1536" alt="IMG_0941" src="https://github.com/user-attachments/assets/77e079da-e8e4-4b73-bf23-5e809caf5f7a" />
+![](https://github.com/user-attachments/assets/58fc0fb1-1f9e-4a69-8076-6ace780e09e0)
+![](https://github.com/user-attachments/assets/77e079da-e8e4-4b73-bf23-5e809caf5f7a)
 
 The problems with it are as follows:
 1) The power supply has a lot of issues. Like, a significant number. Every time the amp drew power to play music, the motor would slow down. And on certain portions of the song, the motor would slow down by different amounts. It almost followed the beat of the song in a way. Unintended, but still neat.
@@ -70,7 +69,7 @@ I wanted to fix all of these issues, but it reached the end of the summer, and s
 
 I put the project on hold for the first few weeks of school. But then, I joined a club on campus that gave me access to Altium, the industry-standard PCB design software. I immediately thought of designing a custom PCB for my project, and from there I was off to the races.
 
-<img width="411" height="325" alt="Screenshot 2026-09-23 121106" src="https://github.com/user-attachments/assets/c6c72f83-7671-4b0f-ae1d-00bb89338c25" />
+![](https://github.com/user-attachments/assets/c6c72f83-7671-4b0f-ae1d-00bb89338c25)
 
 <h6> The first prototype of my PCB</h6>
 
@@ -80,27 +79,27 @@ I went back to the drawing board and started redesigning it. The first thing I d
 
 As you can see, the main difference is that it is a through-hole connection, instead of having headers. This does require more work on the soldering side, but the trade-off of knowing it will fit the first try convinced me this was the right path to take. Here is what it looked like after configuring the ESP32 mount in Altium:
 
-<img width="365" height="310" alt="Screenshot 2026-09-27 224221" src="https://github.com/user-attachments/assets/983196d4-6882-4d48-90eb-8b2f9412169f" />
+![](https://github.com/user-attachments/assets/983196d4-6882-4d48-90eb-8b2f9412169f)
 
 And here is my first prototype of my entire PCB:
 
-<img width="959" height="562" alt="Screenshot 2026-09-23 232548" src="https://github.com/user-attachments/assets/9d705bb9-801f-4433-badc-bf1f19c1b677" />
+![](https://github.com/user-attachments/assets/9d705bb9-801f-4433-badc-bf1f19c1b677)
 
 There are some other differences with this mount as well, namely for the 3.3V and GND connections on the ESP32. I changed those specific ports to use Net Labels instead of Ports. Doing this allowed me to create two new layers in my PCB, one for 3.3V and one for GND. Here is the layer stack I configured in Altium:
 
-<img width="403" height="196" alt="Screenshot 2026-09-23 141507" src="https://github.com/user-attachments/assets/200e17a7-56a1-4912-8a7a-1332339e467f" />
+![](https://github.com/user-attachments/assets/200e17a7-56a1-4912-8a7a-1332339e467f)
 
 I configured it in this manner in order to organize the traces on the PCB. By doing this, I am able to connect the through-hole connections of the components directly to the respective layer for each pin. This allows me to only have to connect the IO pins to the ESP32, significantly easing the layout of the PCB wiring. In addition, it solved an issue I was having where Altium wanted me to wire the GND and 3.3V pins of the components to each other in addition to the ESP32. 
 
 I ran into an issue with this, however, which is that the polygon pours I used to connect the pins on the respective layers together were not connecting to the pins I connected to those layers. I discovered that I had to configure the pins as "Full Stack" rather than "Simple" in this menu:
 
-<img width="334" height="398" alt="Screenshot 2026-09-23 143930" src="https://github.com/user-attachments/assets/776a2509-0396-48f2-9cb8-93621904ae65" />
+![](https://github.com/user-attachments/assets/776a2509-0396-48f2-9cb8-93621904ae65)
 
 Once I did that, I was able to connect the pours to the correct pins on each layer. Here is what they looked like:
 
-<img width="252" height="766" alt="image" src="https://github.com/user-attachments/assets/56b506ab-68c7-4333-a528-0c81a15b8b11" />
+![](https://github.com/user-attachments/assets/56b506ab-68c7-4333-a528-0c81a15b8b11)
 
-<img width="532" height="784" alt="image" src="https://github.com/user-attachments/assets/6eeb67bf-fbaa-4255-bc4e-8b17c3967fbe" />
+![](https://github.com/user-attachments/assets/6eeb67bf-fbaa-4255-bc4e-8b17c3967fbe)
 
 It's difficult to see in the images, but there are lines connecting from the outside to the vias on the headers.
 
@@ -114,15 +113,15 @@ From that first prototype, I progressed, adding more headers for each component 
 
 I also added a couple of other components to improve the user experience. One of those was a power switch to make it easier to turn the record player on and off. Another was a rotary encoder to act as a volume switch. And the last was a power LED, wired directly to the 3.3V line of the ESP32 to indicate whether or not the record player is on. Here are all of those components in schematic view.
 
-<img width="441" height="288" alt="image" src="https://github.com/user-attachments/assets/825a4a21-9dbc-465f-9874-d5723c802e89" />
-<img width="453" height="385" alt="image" src="https://github.com/user-attachments/assets/8cbf0a98-c874-45ec-9967-f4aa00398a0b" />
-<img width="600" height="372" alt="image" src="https://github.com/user-attachments/assets/ee2da100-4ca2-4f88-aa68-96e290bc3e7e" />
+![](https://github.com/user-attachments/assets/825a4a21-9dbc-465f-9874-d5723c802e89)
+![](https://github.com/user-attachments/assets/8cbf0a98-c874-45ec-9967-f4aa00398a0b)
+![](https://github.com/user-attachments/assets/ee2da100-4ca2-4f88-aa68-96e290bc3e7e)
 
 Now, after all this talking and describing the iteration process, here is the current version of the PCB I have come up with.
 
-<img width="849" height="814" alt="image" src="https://github.com/user-attachments/assets/21062fff-5ae7-4419-8f66-77cb6487b0aa" />
-<img width="772" height="814" alt="image" src="https://github.com/user-attachments/assets/5fae6988-08ac-401f-930b-931c7d4b3529" />
-<img width="817" height="648" alt="image" src="https://github.com/user-attachments/assets/2630efe3-b7cb-4de5-8f71-deaef7b25efb" />
+![](https://github.com/user-attachments/assets/21062fff-5ae7-4419-8f66-77cb6487b0aa)
+![](https://github.com/user-attachments/assets/5fae6988-08ac-401f-930b-931c7d4b3529)
+![](https://github.com/user-attachments/assets/2630efe3-b7cb-4de5-8f71-deaef7b25efb)
 
 There are still some crossings in the PCB wiring, but those are unavoidable. To fix those, I will route the traces on the top and the bottom of the pcb.
 
