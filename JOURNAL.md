@@ -123,5 +123,48 @@ Now, after all this talking and describing the iteration process, here is the cu
 ![](https://github.com/user-attachments/assets/5fae6988-08ac-401f-930b-931c7d4b3529)
 ![](https://github.com/user-attachments/assets/2630efe3-b7cb-4de5-8f71-deaef7b25efb)
 
-There are still some crossings in the PCB wiring, but those are unavoidable. To fix those, I will route the traces on the top and the bottom of the pcb.
+There are still some crossings in the PCB wiring, but those are unavoidable. To fix those, I will route the traces on the top and bottom of the PCB.
 
+# The Case
+
+One of the most important parts of the whole project, as without it there is nothing to put the electronics into. Here is what the original creators' design looked like:
+
+![](https://github.com/user-attachments/assets/39c0ad49-38a0-45bc-a3ed-31d2478ca8ab)
+
+It has mounts for the Raspberry PI (which is what the original project used), along with all of the necessary components. It also had holes in the back for airflow and connections, and a grill in the front to mimic a traditional record player. Overall, a very nice design, and impressive given he said it was his first 3D design. 
+
+I modified the design in a few different ways. One was to extend it up to a height of 2". This was done to ensure the speaker I used fit, with the lid still fitting snugly on the case. The other modification I made was to cut out a hole in the grill to allow the sound from the speaker to be heard with full clarity.
+
+This is the final design I settled on:
+
+INSERT PICTURE
+
+For future modifications of the case, I would want to design screw holes to secure the custom PCB. I put mounting holes on all four corners of the PCB for that exact reason. I would also want to ensure that all the components have a place to sit, either on the PCB or in the case. I don't want anything floating unsupported. To achieve this new design, I will utilize Fusion360, as it is industry-standard software. I have no experience with the program, and the few times I've opened it have been overwhelming, but over the next few weeks I plan to teach myself through online courses. I then plan to 3D print the new case using the resources available at my school. 
+
+# PCB Manufacturing
+
+To manufacture the PCB, I will use JLCPCB. That is what the wind power club I am a part of uses, and it seems to be the most in-depth, robust, and high-quality company on the market. However, I ran into issues when trying to use their PCBA service. Mainly, the parts I used weren't available in their PCBA parts library. I had to search for parts in their library, cross-referencing with both DigiKey, in case I wanted to order parts manually, and componentsearchengine.com to ensure I had the part footprint in Altium. This process took several hours, and there was probably a better way to do it, but it's done now. I had to add a property to every single component in my project to connect it to one in the JCL PCBA library, like this:
+
+![](https://github.com/user-attachments/assets/98899e9a-32da-4334-83ed-dcf791d91858)
+
+I then created an output job file so I could save the specific export settings JCL wanted and export everything with one click.
+
+![](https://github.com/user-attachments/assets/182f53c8-2a7d-4195-ab5d-892fbce54472)
+
+This allowed me to export the Gerber and NC Drill File for PCB production, as well as the BOM and pick-and-place documents for the PCBA process. Ultimately, however, I think I am going to order the parts manually through DigiKey and solder them myself. Not only is this about $50 cheaper, but it will also give me experience soldering at this scale, which is a very useful skill to have.
+
+# The Code
+
+Originally, I was going to use the original project's code as a base and build off of that, but as I couldn't obtain a Raspberry Pi Zero (still convinced they don't exist), I had to start from scratch. Luckily, the Arduino ESP32 makes it very easy, as all the normal Arduino functions I was used to were available to me. I worked through each component piece by piece, ensuring that the APIs I was using were communicating with it correctly. I also had to manage an SPI bus for the SD card reader and RFID reader, and an I2S bus for the audio output. I will admit I don't know how they work technically, only that they are communication protocols. I am planning to research them, along with I2C, in the future to gain a deeper understanding of how they all work individually and together.
+
+An interesting piece of code I had to write, following a debugging process, was this one:
+
+![](https://github.com/user-attachments/assets/a396f1c4-9393-45cf-9dfc-0a040b8890db)
+
+I noticed that when the record player was idle, the motor would either retain heat or increase its heat slowly over time. I also noticed the lights on the driver board I was using, which lit up when the corresponding coil was energized or de-energized. After some testing, I realized the coils were still being energized even when the motor wasn't moving. I then added the above code in order to prevent the motor from overheating. 
+
+I also added a very simple web server to the project, with the following HTML rendered:
+
+![](https://github.com/user-attachments/assets/0f251a1a-9b3d-4b07-9ba1-52ecf36138b3)
+
+As I said, simple. No fancy React, Bootstrap, or even CSS. Just pure HTML, as our ancestors intended. It is served over a local access point generated by the ESP32. The process is as follows: you connect to the AP, load up the website, place a record on the record player, and upload a song via the web portal. It then takes the NFC tag UID of the current record, renames the music file to that ID (which is how it maps the songs to the tags), and saves it locally to the SD card. By that logic, you can create new records and assign songs to them without ever touching the code.
